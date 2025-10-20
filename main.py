@@ -1,11 +1,13 @@
+
+import os
+import asyncio
 from telegram import Bot
 from telegram.ext import ApplicationBuilder
-from apscheduler.schedulers.background import BackgroundScheduler
-import asyncio, os
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 TOKEN = os.getenv("BOT_TOKEN")
 
-GROUP_IDS = [-1001234567890]  # Grup ID’lerini buraya yaz
+GROUP_IDS = [-1001234567890]  # Grup ID'lerini buraya yaz
 MESSAGE = """🎉 ÇEKİLİŞ 🎉
 🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉
 
@@ -24,19 +26,21 @@ async def send_scheduled_message(bot: Bot):
             await bot.send_message(chat_id=gid, text=MESSAGE)
             print(f"✅ Mesaj gönderildi: {gid}")
         except Exception as e:
-            print(f"⚠️ {gid} grubuna gönderilemedi: {e}")
+            print(f"⚠️ Mesaj gönderilemedi ({gid}): {e}")
 
 async def main():
     app = ApplicationBuilder().token(TOKEN).build()
     bot = app.bot
 
-    scheduler = BackgroundScheduler(timezone="Europe/Istanbul")
-    scheduler.add_job(lambda: asyncio.run(send_scheduled_message(bot)),
-                      trigger="cron", hour=22, minute=59)
+    scheduler = AsyncIOScheduler(timezone="Europe/Istanbul")
+    # Örneğin her gün saat 21:00'de mesaj at
+    scheduler.add_job(send_scheduled_message, "cron", hour=21, minute=0, args=[bot])
     scheduler.start()
 
-    print("🤖 Bot Render üzerinde çalışıyor...")
-    await app.run_polling()
+    print("🤖 Bot Render üzerinde çalışıyor ve zamanlama aktif...")
+    await app.initialize()
+    await app.start()
+    await asyncio.Event().wait()  # Bot sonsuza kadar açık kalır
 
 if __name__ == "__main__":
     asyncio.run(main())
