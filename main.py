@@ -3,7 +3,7 @@ from telegram.ext import ApplicationBuilder
 from apscheduler.schedulers.background import BackgroundScheduler
 import asyncio, os
 
-TOKEN = os.getenv("7876162998:AAFfVD3MtXLT5OL7q_0u4GzBNm3-KHDVvNg")
+TOKEN = os.getenv("BOT_TOKEN")
 
 GROUP_IDS = [-1001234567890]  # Grup ID’lerini buraya yaz
 MESSAGE = "🎉 ÇEKİLİŞ 🎉
