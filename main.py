@@ -34,7 +34,7 @@ async def main():
 
     scheduler = AsyncIOScheduler(timezone="Europe/Istanbul")
     # Örneğin her gün saat 21:00'de mesaj at
-    scheduler.add_job(send_scheduled_message, "cron", hour=21, minute=0, args=[bot])
+    scheduler.add_job(send_scheduled_message, "cron", hour=23, minute=10, args=[bot])
     scheduler.start()
 
     print("🤖 Bot Render üzerinde çalışıyor ve zamanlama aktif...")
