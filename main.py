@@ -32,7 +32,7 @@ async def main():
 
     scheduler = BackgroundScheduler(timezone="Europe/Istanbul")
     scheduler.add_job(lambda: asyncio.run(send_scheduled_message(bot)),
-                      trigger="cron", hour=10, minute=0)
+                      trigger="cron", hour=22, minute=59)
     scheduler.start()
 
     print("🤖 Bot Render üzerinde çalışıyor...")
