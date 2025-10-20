@@ -6,7 +6,7 @@ import asyncio, os
 TOKEN = os.getenv("BOT_TOKEN")
 
 GROUP_IDS = [-1001234567890]  # Grup ID’lerini buraya yaz
-MESSAGE = "🎉 ÇEKİLİŞ 🎉
+MESSAGE = """🎉 ÇEKİLİŞ 🎉
 🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉
 
 🎉 200 USDT ŞARTLAR 🎉
@@ -16,7 +16,7 @@ USDT VERİLECEKTİR
 🎉🎉
 KANAL: https://t.me/airdropandcrypti
 📆 Bitiş süresi:
-25/10/2025 00:00"
+25/10/2025 00:00"""
 
 async def send_scheduled_message(bot: Bot):
     for gid in GROUP_IDS:
